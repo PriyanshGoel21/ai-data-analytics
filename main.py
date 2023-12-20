@@ -32,18 +32,24 @@ with open(filename, "r") as csvfile:
         if phone_model == "":
             phone_model = None
         total_visits = int(row[5].split(".")[0])
-        cursor.execute(
-            "INSERT INTO traffic (date_of_metrics, total_visits, brand_name, phone_model, partner, partner_country, "
-            "partner_region) VALUES (?, ?, ?, ?, ?, ?, ?)",
-            (
-                date_of_visit,
-                total_visits,
-                brand_name,
-                phone_model,
-                partner,
-                partner_country,
-                partner_region,
-            ),
-        )
+        # cursor.execute(
+        #     "INSERT INTO traffic (date_of_metrics, total_visits, brand_name, phone_model, partner, partner_country, "
+        #     "partner_region) VALUES (?, ?, ?, ?, ?, ?, ?)",
+        #     (
+        #         date_of_visit,
+        #         total_visits,
+        #         brand_name,
+        #         phone_model,
+        #         partner,
+        #         partner_country,
+        #         partner_region,
+        #     ),
+        # )
+        with open("rag.txt", "a+") as F:
+            F.write(
+                f"The date of metrics is {date_of_visit}. The partner region is {partner_region}. The partner country "
+                f"is {partner_country}. The partner is {partner}. The brand name is {brand_name}. The total visits is "
+                f"{total_visits}. The phone model is {phone_model}\n"
+            )
 conn.commit()
 conn.close()
